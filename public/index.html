@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard UI</title>
+  <link rel="stylesheet" href="styleIndex.css">
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      display: flex;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: 100px;
+      background-color: rgba(42, 43, 47, 1);
+      color: white;
+      height: 100hv;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 20px;
+    }
+
+    .sidebar i {
+      margin: 20px 0;
+      font-size: 20px;
+      cursor: pointer;
+    }
+
+    /* Main Area */
+    .main-content {
+      flex-grow: 1;
+      height: 120vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .top-bar {
+      height: 100px;
+      background-color: white;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+      position: relative;
+    }
+
+    .top-bar .welcome {
+      font-weight: bold;
+      font-size: 20px;
+    }
+
+    .home-view {
+      padding: 20px;
+      font-size: 18px;
+    }
+
+    /* Notification Icon */
+    .notification-wrapper {
+      position: relative;
+      margin-right: 20px;
+    }
+
+    .notification-icon {
+      width: 30px;
+      height: 30px;
+      cursor: pointer;
+    }
+
+    .dropdown {
+      position: absolute;
+      top: 70px;
+      right: 70px;
+      background-color: white;
+      width: 250px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      display: none;
+      z-index: 1000;
+    }
+
+    .dropdown.show {
+      display: block;
+    }
+
+    .dropdown h4 {
+      margin: 0;
+      padding: 10px;
+      border-bottom: 1px solid #eee;
+      background: #fafafa;
+    }
+
+    .dropdown ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .dropdown ul li {
+      padding: 10px;
+      border-bottom: 1px solid #f0f0f0;
+      font-size: 14px;
+    }
+
+    .dropdown ul li:last-child {
+      border-bottom: none;
+    }
+
+    .profile {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .profile img {
+      border-radius: 50%;
+    }
+
+    .welcome{
+      margin-left: 50px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="sidebar">
+    <i><img src="./img/material-symbols_home-rounded.png"></i>
+    <i><img src="./img/Profil.png"></i>
+    <i><img src="./img/Setting.png"></i>
+  </div>
+
+  <div class="main-content">
+    <div class="top-bar">
+      <div class="welcome">Welcome back, Sarah 👋</div>
+      <div class="profile">
+        <div class="notification-wrapper">
+          <img src="./img/Notifications.png" alt="Notification" class="notification-icon" onclick="toggleDropdown()" />
+          <div class="dropdown" id="notificationDropdown">
+            <h4>Notifications</h4>
+            <ul>
+              <li>🔔 New comment on your post</li>
+            </ul>
+          </div>
+        </div>
+        <img src="https://i.pravatar.cc/50"/>
+      </div>
+    </div>
+    <div class="tab-bar">
+      <div class="tab-left">
+        <span class="tab-item active"><img src="./img/Home.png"> Home view </span>
+      </div>
+      <div class="tab-right">
+        <span class="tab-link bold">Filter</span>
+        <span class="tab-link">Sort</span>
+        <span class="tab-more">...</span>
+      </div>
+
+      </div>
+      <div class="task-controls">
+        <button onclick="addTask()">+ Add Task</button>
+        <input type="text" id="taskTitle" placeholder="Enter task title" />
+      </div>
+      
+      <div class="task-section">
+        <details open>
+          <summary>TO DO</summary>
+          <table id="todoTable">
+            <thead>
+              <tr>
+                <th>Title</th>
+                <th>Due Date</th>
+                <th>Priority</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </details>
+      
+        <details>
+          <summary>IN PROGRESS</summary>
+          <table id="inProgressTable">
+            <thead>
+              <tr>
+                <th>Title</th>
+                <th>Due Date</th>
+                <th>Priority</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </details>
+      
+        <details>
+          <summary>COMPLETE</summary>
+          <table id="completeTable">
+            <thead>
+              <tr>
+                <th>Title</th>
+                <th>Due Date</th>
+                <th>Priority</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </details>
+      </div>
+    </div>
+    
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
