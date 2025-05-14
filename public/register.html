@@ -1,239 +1,227 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register - ToDo</title>
-    <link rel="stylesheet" href="style.css">
-    <style>
-        .auth-container {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: linear-gradient(135deg, rgba(42, 43, 47, 1) 0%, rgb(19, 19, 19) 100%);
-            padding: 20px;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Register - ToDo</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .auth-container {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, rgba(42, 43, 47, 1) 0%, rgb(19, 19, 19) 100%);
+      padding: 20px;
+    }
 
-        .auth-card {
-            background: white;
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 400px;
-        }
+    .auth-card {
+      background: white;
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 400px;
+    }
 
-        .auth-header {
-            text-align: center;
-            margin-bottom: 30px;
-        }
+    .auth-header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
 
-        .auth-header img {
-            width: 120px;
-            margin-bottom: 20px;
-        }
+    .auth-header img {
+      width: 120px;
+      margin-bottom: 20px;
+    }
 
-        .auth-header h1 {
-            color: rgba(42, 43, 47, 1);
-            font-size: 24px;
-            margin-bottom: 10px;
-        }
+    .auth-header h1 {
+      color: rgba(42, 43, 47, 1);
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
 
-        .auth-form {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
+    .auth-form {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
 
-        .form-group {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
 
-        .form-group label {
-            color: rgba(42, 43, 47, 1);
-            font-weight: 500;
-        }
+    .form-group label {
+      color: rgba(42, 43, 47, 1);
+      font-weight: 500;
+    }
 
-        .form-group input,
-        .form-group select {
-            padding: 12px 16px;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            font-size: 16px;
-            transition: border-color 0.3s;
-            background-color: white;
-        }
+    .form-group input,
+    .form-group select {
+      padding: 12px 16px;
+      border: 2px solid #e0e0e0;
+      border-radius: 8px;
+      font-size: 16px;
+      transition: border-color 0.3s;
+      background-color: white;
+    }
 
-        .form-group input:focus,
-        .form-group select:focus {
-            border-color: rgba(42, 43, 47, 1);
-            outline: none;
-        }
+    .form-group input:focus,
+    .form-group select:focus {
+      border-color: rgba(42, 43, 47, 1);
+      outline: none;
+    }
 
-        .auth-btn {
-            background: rgba(42, 43, 47, 1);
-            color: white;
-            padding: 14px;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
+    .auth-btn {
+      background: rgba(42, 43, 47, 1);
+      color: white;
+      padding: 14px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
 
-        .auth-btn:hover {
-            background: rgb(136, 132, 132);
-        }
+    .auth-btn:hover {
+      background: rgb(136, 132, 132);
+    }
 
-        .auth-links {
-            margin-top: 20px;
-            text-align: center;
-            font-size: 14px;
-        }
+    .auth-links {
+      margin-top: 20px;
+      text-align: center;
+      font-size: 14px;
+    }
 
-        .auth-links a {
-            color: rgba(42, 43, 47, 1);
-            text-decoration: none;
-            font-weight: 500;
-        }
+    .auth-links a {
+      color: rgba(42, 43, 47, 1);
+      text-decoration: none;
+      font-weight: 500;
+    }
 
-        .auth-links a:hover {
-            text-decoration: underline;
-        }
+    .auth-links a:hover {
+      text-decoration: underline;
+    }
 
-        .error-message {
-            color: #dc3545;
-            background: #ffe3e5;
-            padding: 10px;
-            border-radius: 6px;
-            margin-bottom: 15px;
-            display: none;
-        }
+    .error-message {
+      color: #dc3545;
+      background: #ffe3e5;
+      padding: 10px;
+      border-radius: 6px;
+      margin-bottom: 15px;
+      display: none;
+    }
 
-        @media (max-width: 480px) {
-            .auth-card {
-                padding: 20px;
-            }
+    @media (max-width: 480px) {
+      .auth-card {
+        padding: 20px;
+      }
 
-            .auth-header h1 {
-                font-size: 20px;
-            }
+      .auth-header h1 {
+        font-size: 20px;
+      }
 
-            .form-group input,
-            .form-group select {
-                padding: 10px 14px;
-                font-size: 14px;
-            }
+      .form-group input,
+      .form-group select {
+        padding: 10px 14px;
+        font-size: 14px;
+      }
 
-            .auth-btn {
-                padding: 12px;
-                font-size: 14px;
-            }
-        }
-    </style>
+      .auth-btn {
+        padding: 12px;
+        font-size: 14px;
+      }
+    }
+  </style>
 </head>
 <body>
-    <div class="auth-container">
-        <div class="auth-card">
-            <div class="auth-header">
-                <img src="./img/waving-hand_1f44b.png" alt="Logo">
-                <h1>Create Account</h1>
-                <p>Join our learning community</p>
-            </div>
-            
-            <div id="error-message" class="error-message"></div>
+  <div class="auth-container">
+    <div class="auth-card">
+      <div class="auth-header">
+        <img src="./img/waving-hand_1f44b.png" alt="Logo">
+        <h1>Create Account</h1>
+        <p>Join our learning community</p>
+      </div>
+      
+      <div id="error-message" class="error-message"></div>
 
-            <form class="auth-form" id="register-form">
-                <div class="form-group">
-                    <label for="name">Full Name</label>
-                    <input type="text" id="name" name="name" required placeholder="Enter your full name">
-                </div>
-
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" name="email" required placeholder="Enter your email">
-                </div>
-
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" id="password" name="password" required placeholder="Create a password" minlength="6">
-                </div>
-                <button type="submit" class="auth-btn">Register</button>
-            </form>
-
-            <div class="auth-links">
-                <p>Already have an account? <a href="login.html">Login</a></p>
-            </div>
+      <form class="auth-form" id="register-form">
+        <div class="form-group">
+          <label for="name">Full Name</label>
+          <input type="text" id="name" name="name" required placeholder="Enter your full name">
         </div>
-    </div>
 
-    <script src="js/auth.js"></script>
-    <script>
-        // Redirect if already logged in
-        if (Auth.isAuthenticated()) {
-            window.location.href = 'index.html';
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required placeholder="Enter your email">
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" required placeholder="Create a password" minlength="6">
+        </div>
+        <button type="submit" class="auth-btn">Register</button>
+      </form>
+
+      <div class="auth-links">
+        <p>Already have an account? <a href="login.html">Login</a></p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ✅ إذا المستخدم مسجل دخول، يرجع للصفحة الرئيسية
+    if (localStorage.getItem("token")) {
+      window.location.href = "index.html";
+    }
+
+    document.getElementById("register-form").addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const name = document.getElementById("name").value;
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+      const errorMessage = document.getElementById("error-message");
+      const submitBtn = document.querySelector('button[type="submit"]');
+
+      if (password.length < 6) {
+        errorMessage.textContent = "Password must be at least 6 characters";
+        errorMessage.style.display = "block";
+        return;
+      }
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = "Creating Account...";
+      errorMessage.style.display = "none";
+
+      try {
+        const response = await fetch("http://localhost:3001/api/auth/signup", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ email, password })
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+          throw new Error(data.message || "Registration failed");
         }
 
-        document.getElementById('register-form').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const form = e.target;
-            const submitBtn = form.querySelector('button[type="submit"]');
-            const errorMessage = document.getElementById('error-message');
-            
-            // Basic password validation
-            const password = document.getElementById('password').value;
-            if (password.length < 6) {
-                errorMessage.textContent = 'Password must be at least 6 characters long';
-                errorMessage.style.display = 'block';
-                return;
-            }
-            
-            // Disable form and show loading state
-            submitBtn.disabled = true;
-            submitBtn.textContent = 'Creating Account...';
-            errorMessage.style.display = 'none';
-            
-            try {
-                const response = await fetch('http://localhost:3001/api/auth/register', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        name: document.getElementById('name').value,
-                        email: document.getElementById('email').value,
-                        password: password,
-                    })
-                });
+        alert("Account created successfully!");
+        window.location.href = "login.html";
 
-                const data = await response.json();
-
-                if (!response.ok) {
-                    throw new Error(data.message || 'Registration failed');
-                }
-
-                // Save token and user data
-                localStorage.setItem('token', data.token);
-                localStorage.setItem('user', JSON.stringify(data.user));
-
-                // Update UI before redirect
-                Auth.updateAuthUI();
-
-                // Redirect to home page
-                window.location.href = 'index.html';
-            } catch (error) {
-                errorMessage.textContent = error.message;
-                errorMessage.style.display = 'block';
-            } finally {
-                // Reset form state
-                submitBtn.disabled = false;
-                submitBtn.textContent = 'Register';
-            }
-        });
-    </script>
+      } catch (error) {
+        errorMessage.textContent = error.message;
+        errorMessage.style.display = "block";
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = "Register";
+      }
+    });
+  </script>
 </body>
 </html>

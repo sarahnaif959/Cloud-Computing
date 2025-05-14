@@ -12,17 +12,21 @@
       display: flex;
     }
 
-    /* Sidebar */
     .sidebar {
-      width: 100px;
-      background-color: rgba(42, 43, 47, 1);
-      color: white;
-      height: 100hv;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding-top: 20px;
-    }
+    width: 100px;
+    background-color: rgba(42, 43, 47, 1);
+    color: white;
+    height: 100vh; /* Extend to full height */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 20px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    overflow-y: auto;
+    z-index: 1000;
+}
 
     .sidebar i {
       margin: 20px 0;
@@ -30,7 +34,11 @@
       cursor: pointer;
     }
 
-    /* Main Area */
+    .sidebar i img {
+      width: 25px;
+      height: 25px;
+    }
+
     .main-content {
       flex-grow: 1;
       height: 120vh;
@@ -58,16 +66,35 @@
       font-size: 18px;
     }
 
-    /* Notification Icon */
     .notification-wrapper {
       position: relative;
       margin-right: 20px;
     }
 
+    /* Notification Icon in Dark and Light Modes */
     .notification-icon {
       width: 30px;
       height: 30px;
       cursor: pointer;
+      filter: invert(0); /* Default for light mode */
+      transition: filter 0.3s ease;
+    }
+
+    body.dark-mode .notification-icon {
+      filter: invert(1); /* Invert color for dark mode */
+    }
+
+    /* Notification Dot */
+    .notification-wrapper.has-notification::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 10px;
+      height: 10px;
+      background-color: #ff6347;
+      border-radius: 50%;
+      border: 2px solid #fff;
     }
 
     .dropdown {
@@ -120,22 +147,159 @@
       border-radius: 50%;
     }
 
-    .welcome{
+    .welcome {
       margin-left: 50px;
+    }
+
+    body.light-mode {
+      background-color: white;
+      color: black;
+    }
+
+    body.dark-mode {
+      background-color: #1e1e1e;
+      color: #ccc;
+    }
+
+    .top-bar.dark-mode {
+      background-color: #333;
+      color: white;
+    }
+
+    .sidebar.dark-mode {
+      background-color: #2b2b2b;
+      color: white;
+    }
+
+    .task-section.dark-mode,
+    .tab-bar.dark-mode {
+      background-color: #2b2b2b;
+      color: white;
+    }
+
+    /* Active Tab in Light Mode */
+    .tab-bar .tab-item.active {
+      border-bottom: 2px solid black;
+      color: black;
+      font-weight: bold;
+    }
+
+    /* Active Tab in Dark Mode */
+    body.dark-mode .tab-bar .tab-item.active {
+      border-bottom: 2px solid white;
+      color: white;
+      font-weight: bold;
+    }
+
+    .dropdown.dark-mode {
+      background-color: #333;
+      color: white;
+      border-color: #555;
+    }
+
+    /* Main Content Background */
+    body.dark-mode .main-content {
+      background-color: #000;
+    }
+
+    /* Task Headers (Keep same color) */
+    body.dark-mode .task-section details summary {
+      background-color: #f5f5f5; /* Same color as current headers */
+      color: #000;
+    }
+
+    /* Add Task Button in Dark Mode */
+    body.dark-mode .task-controls button {
+      background-color: #fff;
+      color: #000;
+      border: 1px solid #ccc;
+    }
+
+    /* Task Title Input in Dark Mode */
+    body.dark-mode .task-controls input[type="text"] {
+      background-color: #333;
+      color: #fff;
+      border: 1px solid #555;
+    }
+
+    /* Top Bar Background in Dark Mode */
+    body.dark-mode .top-bar {
+      background-color: #000;
+      color: #fff;
+    }
+
+    /* Welcome Text in Dark Mode */
+    body.dark-mode .top-bar .welcome {
+      color: #fff;
+    }
+
+    /* Tab Bar in Dark Mode */
+    body.dark-mode .tab-bar {
+      background-color: #000;
+      color: #fff;
+    }
+
+    /* Active Tab in Dark Mode */
+    body.dark-mode .tab-bar .tab-item.active {
+      background-color: #222;
+      color: #fff;
+    }
+
+    /* Filter and Sort Links in Dark Mode */
+    body.dark-mode .tab-bar .tab-link,
+    body.dark-mode .tab-bar .tab-moree {
+      color: #fff;
+    }
+
+    /* Filter Button Hover and Active States */
+    .tab-link.filter-btn {
+        position: relative;
+        cursor: pointer;
+        display: inline-block;
+        padding-bottom: 5px;
+    }
+
+    .tab-link.filter-btn.active::after,
+    .tab-link.filter-btn:hover::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 2px;
+        background-color: black;
+        transition: width 0.3s;
+        width: 100%;
+    }
+    /* Search Bar Styles */
+    .task-controls input[type="text"] {
+        margin-left: 10px;
+        padding: 10px;
+        width: 250px;
+        font-size: 14px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        margin-bottom: 10px;
+    }
+
+    .task-controls input[type="text"]:focus {
+        border-color: #007bff;
+        outline: none;
     }
   </style>
 </head>
 <body>
+  <button class="sidebar-toggle" onclick="toggleSidebar()">☰</button>
 
   <div class="sidebar">
-    <i><img src="./img/material-symbols_home-rounded.png"></i>
-    <i><img src="./img/Profil.png"></i>
-    <i><img src="./img/Setting.png"></i>
+    <i><img src="./img/material-symbols_home-rounded.png"><a href="index.html"></a></i>
+    <i onclick="logout()" title="Logout"><img src="./img/logout-32.png" alt="Logout" /></i>
+    <i onclick="toggleTheme()" title="Toggle Theme"><img src="./img/Setting.png" alt="Settings" /></i>
   </div>
 
   <div class="main-content">
     <div class="top-bar">
-      <div class="welcome">Welcome back, Sarah 👋</div>
+      <div class="welcome" id="welcome-text">Welcome back 👋</div>
       <div class="profile">
         <div class="notification-wrapper">
           <img src="./img/Notifications.png" alt="Notification" class="notification-icon" onclick="toggleDropdown()" />
@@ -146,77 +310,101 @@
             </ul>
           </div>
         </div>
-        <img src="https://i.pravatar.cc/50"/>
       </div>
     </div>
+
     <div class="tab-bar">
       <div class="tab-left">
-        <span class="tab-item active"><img src="./img/Home.png"> Home view </span>
+        <span class="tab-item active" onclick="location.reload()">Home</span>
       </div>
       <div class="tab-right">
-        <span class="tab-link bold">Filter</span>
-        <span class="tab-link">Sort</span>
-        <span class="tab-more">...</span>
-      </div>
-
-      </div>
-      <div class="task-controls">
-        <button onclick="addTask()">+ Add Task</button>
-        <input type="text" id="taskTitle" placeholder="Enter task title" />
-      </div>
-      
-      <div class="task-section">
-        <details open>
-          <summary>TO DO</summary>
-          <table id="todoTable">
-            <thead>
-              <tr>
-                <th>Title</th>
-                <th>Due Date</th>
-                <th>Priority</th>
-                <th>Status</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody></tbody>
-          </table>
-        </details>
-      
-        <details>
-          <summary>IN PROGRESS</summary>
-          <table id="inProgressTable">
-            <thead>
-              <tr>
-                <th>Title</th>
-                <th>Due Date</th>
-                <th>Priority</th>
-                <th>Status</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody></tbody>
-          </table>
-        </details>
-      
-        <details>
-          <summary>COMPLETE</summary>
-          <table id="completeTable">
-            <thead>
-              <tr>
-                <th>Title</th>
-                <th>Due Date</th>
-                <th>Priority</th>
-                <th>Status</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody></tbody>
-          </table>
-        </details>
+        <span class="tab-link bold filter-btn" onclick="toggleFilter()">Filter</span>
       </div>
     </div>
-    
+
+    <div class="task-controls">
+      <button onclick="addTask()">+ Add Task</button>
+      <input type="text" id="taskTitle" placeholder="Enter task title" />
+      <input type="text" id="taskSearch" placeholder="Search tasks by title" oninput="searchTasks()" />
+    </div>
+
+    <div class="task-section">
+      <details open>
+        <summary>TO DO</summary>
+        <table id="todoTable">
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Due Date</th>
+              <th>Priority</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </details>
+
+      <details>
+        <summary>IN PROGRESS</summary>
+        <table id="inProgressTable">
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Due Date</th>
+              <th>Priority</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </details>
+
+      <details>
+        <summary>COMPLETE</summary>
+        <table id="completeTable">
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Due Date</th>
+              <th>Priority</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </details>
+    </div>
   </div>
+
   <script src="script.js"></script>
+  <script>
+    // 📊 Search Tasks by Title
+    function searchTasks() {
+        const searchTerm = document.getElementById("taskSearch").value.trim().toLowerCase();
+        const tables = ["todoTable", "inProgressTable", "completeTable"];
+
+        tables.forEach((tableId) => {
+            const table = document.getElementById(tableId);
+            if (table) {
+                const rows = table.querySelectorAll("tbody tr");
+
+                rows.forEach((row) => {
+                    const titleCell = row.querySelector("td:first-child");
+                    if (titleCell) {
+                        const taskTitle = titleCell.textContent.trim().toLowerCase();
+                        if (taskTitle.includes(searchTerm)) {
+                            row.style.display = "";
+                        } else {
+                            row.style.display = "none";
+                        }
+                    }
+                });
+            }
+        });
+    }
+  </script>
 </body>
 </html>
